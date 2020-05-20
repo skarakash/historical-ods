@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from "../context/AuthContext";
 import { Form, Button } from "react-bootstrap";
 import { useHttp } from "../hooks/http.hook";
+import { Notifier } from "../components/Notifier";
 import "../css/AuthPage.css";
 
 export const AuthPage = () => {
@@ -12,7 +13,8 @@ export const AuthPage = () => {
         password: "",
     });
 
-    const [message, setMessage] = useState(null)
+    const [message, setMessage] = useState(null);
+    const [messageType, setMessageType] = useState(null);
 
     const handleFormChange = (event) => {
         event.preventDefault();
@@ -20,24 +22,23 @@ export const AuthPage = () => {
     };
 
     const handleRegistration = async () => {
-
         try {
             const data = await request("api/auth/register", "POST", {
                 ...form,
             });
-            setMessage(data.message)
-        } catch (error) { }
+            setMessage(data.message);
+        } catch (error) {}
     };
 
     const handleLogin = async () => {
-
         try {
             const data = await request("api/auth/login", "POST", {
                 ...form,
             });
-            auth.login(data.token, data.userId)
-            setMessage(data.message)
-        } catch (error) { }
+            auth.login(data.token, data.userId);
+            setMessage(data.message);
+            setMessageType("success");
+        } catch (error) {}
     };
 
     return (
@@ -67,20 +68,16 @@ export const AuthPage = () => {
                     controlId="formBasicPassword"
                     className="buttons__wrapper"
                 >
-                    <Button
-                        variant="primary"
-                        onClick={handleRegistration}>
+                    <Button variant="primary" onClick={handleRegistration}>
                         Sign Up
                     </Button>
 
-                    <Button
-                        variant="success"
-                        onClick={handleLogin}>
+                    <Button variant="success" onClick={handleLogin}>
                         Sign In
                     </Button>
                 </Form.Group>
                 <Form.Group className="error">{error}</Form.Group>
-                <Form.Group className="message">{message}</Form.Group>
+                {message && <Notifier message={message} type={messageType} />}
             </Form>
         </div>
     );

@@ -37,7 +37,7 @@ router.post(
             const user = new User({ email, password: hashedPassword });
 
             await user.save();
-            res.status(201).json({ message: "User created" });
+            res.status(201).json({ message: "Your account has been created" });
         } catch (error) {
             res.status(500).json({
                 message: error.message,
@@ -50,11 +50,12 @@ router.post(
     "/login",
     [
         check("email", "Email is not valid").isEmail(),
-        check("password", "Combination of such password and email is not found")
-            .exists(),
+        check(
+            "password",
+            "Combination of such password and email is not found"
+        ).exists(),
     ],
     async (req, res) => {
-
         try {
             const errors = validationResult(req);
 
@@ -73,7 +74,10 @@ router.post(
                 return res.status(400).json({ message: "User is not found" });
             }
 
-            const isMatching = await bcrypt.compare(password, user.password);
+            const isMatching = await bcrypt.compare(
+                password,
+                user.password.toString()
+            );
 
             if (!isMatching) {
                 return res.status(400).json({
@@ -82,11 +86,9 @@ router.post(
                 });
             }
 
-            const token = jwt.sign(
-                { userId: user.id },
-                config.jwtSecret,
-                { expiresIn: "1h" }
-            );
+            const token = jwt.sign({ userId: user.id }, config.jwtSecret, {
+                expiresIn: "1h",
+            });
 
             res.json({ token, userId: user.id });
         } catch (error) {

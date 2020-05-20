@@ -11,16 +11,13 @@ function App() {
     const isAuthenticated = !!token;
     const routes = userRoutes(isAuthenticated);
 
-
     return (
         <AuthContext.Provider
             value={{ token, login, logout, userId, isAuthenticated }}
         >
             <BrowserRouter>
                 {isAuthenticated && <MyNavbar />}
-                <div className="container">
-                    {routes}
-                </div>
+                <div className="container">{routes}</div>
             </BrowserRouter>
         </AuthContext.Provider>
     );
