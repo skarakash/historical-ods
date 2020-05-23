@@ -42,7 +42,7 @@ router.post("/add", async (req, res) => {
             awayTeam,
             homeScore,
             awayScore,
-            totalGoals,
+            totalGoals: homeScore + awayScore,
             hOdds,
             aOdds,
             dOdds,
