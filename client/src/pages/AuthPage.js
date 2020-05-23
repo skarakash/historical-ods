@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Form, Button } from "react-bootstrap";
 import { useHttp } from "../hooks/http.hook";
 import { Notifier } from "../components/Notifier";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/AuthPage.css";
 
 export const AuthPage = () => {
@@ -27,7 +28,7 @@ export const AuthPage = () => {
                 ...form,
             });
             setMessage(data.message);
-        } catch (error) {}
+        } catch (error) { }
     };
 
     const handleLogin = async () => {
@@ -38,7 +39,7 @@ export const AuthPage = () => {
             auth.login(data.token, data.userId);
             setMessage(data.message);
             setMessageType("success");
-        } catch (error) {}
+        } catch (error) { }
     };
 
     return (

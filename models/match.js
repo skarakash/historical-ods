@@ -13,10 +13,10 @@ const schema = new Schema({
     aOdds: { type: Number, required: true },
     dOdds: { type: Number, required: true },
     o2_5: { type: Number, required: true },
-    xG_H: { type: Number, required: true },
-    xG_A: { type: Number, required: true },
-    xPTS_H: { type: Number, required: true },
-    xPTS_A: { type: Number, required: true },
+    xG_H: { type: Number },
+    xG_A: { type: Number },
+    xPTS_H: { type: Number },
+    xPTS_A: { type: Number },
 });
 
 module.exports = model("Match", schema);

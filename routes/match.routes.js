@@ -16,11 +16,7 @@ router.post("/add", async (req, res) => {
             hOdds,
             aOdds,
             dOdds,
-            o2_5,
-            xG_H,
-            xG_A,
-            xPTS_H,
-            xPTS_A,
+            o2_5
         } = req.body;
 
         const candidate = await Match.findOne({
@@ -42,15 +38,11 @@ router.post("/add", async (req, res) => {
             awayTeam,
             homeScore,
             awayScore,
-            totalGoals,
+            totalGoals: homeScore + awayScore,
             hOdds,
             aOdds,
             dOdds,
             o2_5,
-            xG_H,
-            xG_A,
-            xPTS_H,
-            xPTS_A,
         });
 
         await match.save();
@@ -61,5 +53,30 @@ router.post("/add", async (req, res) => {
         });
     }
 });
+
+
+router.post("/matches", async (req, res) => {
+    try {
+        const {
+            body
+        } = req;
+
+        const params = {}
+        Object.keys(body).forEach(key => {
+            if (body[key]) {
+                params[key] = body[key]
+            }
+        });
+
+        const matches = await Match.find(params)
+
+        res.status(200).json(matches)
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+})
 
 module.exports = router;

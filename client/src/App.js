@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useAuth } from "./hooks/auth.hook";
 import { AuthContext } from "./context/AuthContext";
 import { MyNavbar } from "./components/Navbar";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
     const { token, login, logout, userId } = useAuth();

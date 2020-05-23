@@ -1,0 +1,31 @@
+.oddsForm {
+    min-height: 0;
+    display: flex;
+}
+
+.formControl {
+    margin-right: 5px;
+}
+
+.formControl input {
+    border: 1px solid lightslategrey;
+    border-radius: 3px;
+    outline: none;
+    height: 30px;
+}
+
+.formControl input::placeholder {
+    color: lightslategrey;
+    text-align: center;
+}
+
+.oddsForm button {
+height: 30px;
+border: 1px solid lightslategrey;
+background-color: transparent;
+width: 100px;
+font-family: Helvetica, sans-serif;
+font-weight: bolder;
+color: lightslategrey;
+border-radius: 3px;
+}
